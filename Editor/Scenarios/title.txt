@@ -1,0 +1,37 @@
+\\Main Menu
+.options[Start Race,Credits]
+//,Settings,Scores,Quit]
+\\Start Race
+.call[new-game]
+.end
+
+\\Quit
+Are you sure you want to quit?
+.options[Yes,No]
+
+\\Yes
+.call[quit]
+.end
+
+\\No
+.go[Main Menu]
+
+\\Settings
+.call[show-settings]
+.go[Main Menu]
+
+\\Scores
+.call[show-high-scores]
+.go[Main Menu]
+
+\\Credits
+NekdoNahodny drew the wonderful animal art and even animated them! 
+.next
+Goro von Bismark made the tree models, the grass sprites, the fishing rod and the bridges. 
+.next
+DevEarley (me) made the basemap, the textures for it, the programming and the music.
+.next
+We used the (unreleased) AsFunAsFun boilerplate for Unity3d.
+.next
+.clear
+.go[Main Menu]

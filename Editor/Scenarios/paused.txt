@@ -1,0 +1,23 @@
+\\Main Menu
+.options[Resume,Restart]
+
+\\Resume
+.end
+
+\\Quit
+Are you sure you want to quit?
+.options[Yes,No]
+
+\\Yes
+.call[quit]
+.end
+
+\\No
+.go[Main Menu]
+
+\\Settings
+.call[show-settings]
+.go[Main Menu]
+
+\\Restart
+.call[load-scene]title
