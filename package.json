@@ -1,5 +1,10 @@
 {
     "name":"com.asfunasfun.boilerplate",
-    "version":"1.0.0"
+    "version":"1.0.0",
+    "dependencies": {
+        "com.unity.inputsystem":"1.6.1",
+        "com.unity.ugui":"1.0.0",
+        "com.lootlocker.lootlockersdk":"https://github.com/LootLocker/unity-sdk.git#v1.2.3"
+    }
    
 }
