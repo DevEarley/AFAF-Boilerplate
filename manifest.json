@@ -1,7 +1,0 @@
-{
-
-    "dependencies": {     
-        "com.lootlocker.lootlockersdk":"https://github.com/LootLocker/unity-sdk.git#v1.2.3"
-    }
-   
-}
