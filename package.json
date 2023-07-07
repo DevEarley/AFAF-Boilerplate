@@ -5,6 +5,47 @@
         "com.unity.inputsystem":"1.6.1",
         "com.unity.ugui":"1.0.0",
         "com.lootlocker.lootlockersdk":"1.2.3"
-    }
-   
+    },
+    "samples":[
+        {
+            "displayName": "Shaders",
+            "description": "Shaders",
+            "path": "Samples~/SamplesHDRP"
+        },
+        {
+            "displayName": "Scripts",
+            "description": "Scripts",
+            "path": "Samples~/Scripts"
+        },
+        {
+            "displayName": "Materials",
+            "description": "Materials",
+            "path": "Samples~/Materials"
+        },
+        {
+            "displayName": "Scenarios",
+            "description": "Scenarios",
+            "path": "Samples~/Scenarios"
+        },
+        {
+            "displayName": "SpriteFont",
+            "description": "SpriteFont",
+            "path": "Samples~/SpriteFont"
+        },
+        {
+            "displayName": "UITextures",
+            "description": "UITextures",
+            "path": "Samples~/UITextures"
+        },
+        {
+            "displayName": "Scenes",
+            "description": "Scenes",
+            "path": "Samples~/Scenes"
+        },
+        {
+            "displayName": "Prefabs",
+            "description": "Prefabs",
+            "path": "Samples~/Prefabs"
+        }
+    ]
 }
