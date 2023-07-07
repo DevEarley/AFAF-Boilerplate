@@ -10,42 +10,42 @@
         {
             "displayName": "Shaders",
             "description": "Shaders",
-            "path": "Samples~/Shaders"
+            "path": "Samples/Shaders"
         },
         {
             "displayName": "Scripts",
             "description": "Scripts",
-            "path": "Samples~/Scripts"
+            "path": "Samples/Scripts"
         },
         {
             "displayName": "Materials",
             "description": "Materials",
-            "path": "Samples~/Materials"
+            "path": "Samples/Materials"
         },
         {
             "displayName": "Scenarios",
             "description": "Scenarios",
-            "path": "Samples~/Scenarios"
+            "path": "Samples/Scenarios"
         },
         {
             "displayName": "SpriteFont",
             "description": "SpriteFont",
-            "path": "Samples~/SpriteFont"
+            "path": "Samples/SpriteFont"
         },
         {
             "displayName": "UITextures",
             "description": "UITextures",
-            "path": "Samples~/UITextures"
+            "path": "Samples/UITextures"
         },
         {
             "displayName": "Scenes",
             "description": "Scenes",
-            "path": "Samples~/Scenes"
+            "path": "Samples/Scenes"
         },
         {
             "displayName": "Prefabs",
             "description": "Prefabs",
-            "path": "Samples~/Prefabs"
+            "path": "Samples/Prefabs"
         }
     ]
 }
