@@ -10,7 +10,7 @@
         {
             "displayName": "Shaders",
             "description": "Shaders",
-            "path": "Samples~/SamplesHDRP"
+            "path": "Samples~/Shaders"
         },
         {
             "displayName": "Scripts",
