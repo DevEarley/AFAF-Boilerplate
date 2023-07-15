@@ -17,6 +17,11 @@
             "description": "Scripts",
             "path": "Samples/Scripts"
         },
+         {
+            "displayName": "Sample Scripts",
+            "description": "More Scripts",
+            "path": "Samples/Scripts/SampleScripts"
+        },
         {
             "displayName": "Materials",
             "description": "Materials",
