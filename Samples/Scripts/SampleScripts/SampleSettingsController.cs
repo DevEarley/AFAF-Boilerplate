@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingsController : MonoBehaviour
+public class SampleSettingsController : MonoBehaviour
 {
 	[HideInInspector]
 	public float volume;
@@ -32,20 +32,19 @@ public class SettingsController : MonoBehaviour
 	private GameObject BackButton;	
 	private UIController UIController;
 	private SliderService SliderService;
-	private ServiceLocator ServiceLocator;
 	private LootLockerService LootLockerService;
+	private DataRepository DataRepository;
 	private InputController InputController;
 	private ScenarioService ScenarioService;
-	private MusicController MusicController;
 	private TypedInputService TypedInputService;
 	public delegate void OnBackDelegate();
 	public OnBackDelegate OnBack;
 	
 	private void Start()
 	{
-		MusicController = GameObject.FindAnyObjectByType<MusicController>();
 		LootLockerService = GameObject.FindAnyObjectByType<LootLockerService>();
-		ServiceLocator = GameObject.FindAnyObjectByType<ServiceLocator>();
+		DataRepository = GameObject.FindAnyObjectByType<DataRepository>();
+		
 		InputController = GameObject.FindAnyObjectByType<InputController>();
 		ScenarioService = GameObject.FindAnyObjectByType<ScenarioService>();
 		UIController = GameObject.FindAnyObjectByType<UIController>();
@@ -54,16 +53,16 @@ public class SettingsController : MonoBehaviour
 	
 	public void OnDataLoaded()
 	{
-		if(ServiceLocator.DataRepository.gameData.Slots[0].volume == null || ServiceLocator.DataRepository.gameData.Slots[0].volume == "")return;
-		volume = float.Parse(ServiceLocator.DataRepository.gameData.Slots[0].volume);
-		mx =  float.Parse(ServiceLocator.DataRepository.gameData.Slots[0].mouseSensitivity);
-		playerName = ServiceLocator.DataRepository.gameData.Slots[0].name;
+		if(DataRepository.gameData.Slots[0].volume == null || DataRepository.gameData.Slots[0].volume == "")return;
+		volume = float.Parse(DataRepository.gameData.Slots[0].volume);
+		mx =  float.Parse(DataRepository.gameData.Slots[0].mouseSensitivity);
+		playerName = DataRepository.gameData.Slots[0].name;
 		if(playerName!="")
 		{
 			LootLockerService.SetName(playerName);
 		}
 		InputController.MouseSensitivity_x = mx;
-		MusicController.volume = volume;
+		//MusicController.volume = volume;
 	}
 	
 	public void ShowSettings(OnBackDelegate onBack)
@@ -91,7 +90,7 @@ public class SettingsController : MonoBehaviour
 	
 	public void OnBackButton_SaveAndQuit()
 	{
-		ServiceLocator.DataRepository.UpdateSettingsAndSave(this);
+		DataRepository.UpdateSettingsAndSave(this);
 		OnBack();
 	}
 	
@@ -168,7 +167,7 @@ public class SettingsController : MonoBehaviour
 				
 				break;
 			case SettingIndexes.Done:
-				ServiceLocator.DataRepository.UpdateSettingsAndSave(this);
+				DataRepository.UpdateSettingsAndSave(this);
 				IsShowing = false;
 				ScenarioService.Continue();
 				break;

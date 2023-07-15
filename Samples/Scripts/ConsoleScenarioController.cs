@@ -5,8 +5,9 @@ using System.Linq;
 
 public class ConsoleScenarioController : MonoBehaviour, IReactToAllScenarios, IReactToConsole
 {
+	private static bool SlowTimeOnOpen = true;
 	private ConsoleService ConsoleService;
-	private ServiceLocator ServiceLocator;
+	private ScenarioService ScenarioService;
 	private static string HelpText = 
 		@"--Help Text--
 help 
@@ -18,23 +19,19 @@ list-scenes
 
 	protected void Awake()
 	{
-		ServiceLocator = GameObject.FindAnyObjectByType<ServiceLocator>();
 		ConsoleService = GameObject.FindAnyObjectByType<ConsoleService>();
+		ScenarioService = GameObject.FindAnyObjectByType<ScenarioService>();
 		ConsoleService.ConsoleBehaviour = this;
 	}
 	
 	public void OnShowConsole()
 	{
-		Time.timeScale = 0.05f;
-
-		//ServiceLocator.PlayerController.LockInput();
+		if(SlowTimeOnOpen) Time.timeScale = 0.05f;
 	}
 	
 	public void OnHideConsole()
 	{
-		Time.timeScale = 1.0f;
-		
-		//ServiceLocator.PlayerController.UnlockInput();
+		if(SlowTimeOnOpen) Time.timeScale = 1.0f;
 	}
 	
 	public void OnStartScenario()
@@ -44,7 +41,7 @@ list-scenes
 	
 	public void StartScenario(string line)
 	{
-		ServiceLocator.ScenarioService.StartScenario(line);
+		ScenarioService.StartScenario(line);
 	}
 	
 	public void OnProcessedLine(string output)
@@ -54,8 +51,6 @@ list-scenes
 	
 	public void OnCompletedScenario()
 	{
-		//HideConsole();
-		
 	}
 	
 	public void OnScenarioCall(string param1, string param2)
@@ -75,7 +70,7 @@ list-scenes
 			HideConsole();
 			break;
 		case "help":
-			ServiceLocator.ScenarioService.StartScenario(HelpText);
+			ScenarioService.StartScenario(HelpText);
 			break;
 		default:
 			break;

@@ -16,14 +16,14 @@ public class DataRepository : MonoBehaviour
 	private int CurrentLoadSlot = 1;
 	private static float LoadDealy = 0.1f;
 	string saveFile;
-	private ServiceLocator ServiceLocator;
+	private SampleServiceLocator ServiceLocator;
 	//public static DataRepository Instance;
 	public bool HasLoaded = false;
 
 	private void Awake()
 	{
 		//Instance = this;
-        ServiceLocator = FindObjectOfType<ServiceLocator>();
+		ServiceLocator = FindObjectOfType<SampleServiceLocator>();
     }
     
     void Start()
@@ -33,7 +33,7 @@ public class DataRepository : MonoBehaviour
         ReadFile();
 	}
 	
-	public void UpdateSettingsAndSave(SettingsController settings)
+	public void UpdateSettingsAndSave(SampleSettingsController settings)
 	{
 		gameData.Slots[0].mouseSensitivity = settings.mx.ToString();
 		gameData.Slots[0].mouseSensitivity = settings.volume.ToString();

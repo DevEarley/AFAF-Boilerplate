@@ -30,7 +30,7 @@ public class Collectable
 	public string ID;
 	public CollectableTypes type = CollectableTypes.WarpGemShard;
 }
-public class CollectableBehaviour : MonoBehaviour
+public class SampleCollectableBehaviour : MonoBehaviour
 {
 	[HideInInspector]
 	public string ID;
@@ -106,7 +106,7 @@ public class CollectableBehaviour : MonoBehaviour
 			if(MoveTowardPlayer)
 				MovingTowardPlayer = true;
 			CollectedAlready = true;
-			var SoundController = GameObject.FindAnyObjectByType<SoundController>();
+			var SoundController = GameUtility.GetAnyObjectThatImplementsInterface<ISoundController>();
 			SoundController.PlayOneShot(GameSounds.Pickup,1);
 			StartCoroutine(PlayAnimation());
 		}

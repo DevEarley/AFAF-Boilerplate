@@ -4,6 +4,17 @@ using UnityEngine;
 
 public enum GameSounds
 {
+	EnemyScream = 1,
+	GunFire = 2,
+	AquireAmmo=3,
+	AquireGun=4,
+	HitTarget=5,
+	BuzzerStart = 6,
+	BuzzerEnd = 7,
+	AquireHealth = 8,
+	MeleeAttack = 9,
+	GunFire2 = 10,
+	BulletShell = 11,
 	
 	FastTimer = 24,
 	GrappleRelease = 25,
@@ -41,7 +52,7 @@ public enum GameSounds
     
 }
 
-public class SoundController : MonoBehaviour
+public class SampleSoundController : ISoundController
 {
     public AudioClip Pickup;
 	public AudioClip Land;
@@ -76,6 +87,50 @@ public class SoundController : MonoBehaviour
 	public AudioClip Bat;
 	public AudioClip ShiftingStones;
 	public AudioClip StonesSettleLoud;
+	
+	
+	
+	private AudioClip GetSound(GameSounds sound)
+	{
+		AudioClip newClip;
+		switch (sound)
+		{	
+		default:
+		case GameSounds.Pickup: newClip = Pickup; break;
+		case GameSounds.Crunch: newClip = Crunch; break;
+		case GameSounds.Walking: newClip = Walking; break;
+		case GameSounds.Jogging: newClip = Jogging; break;
+		case GameSounds.Running: newClip = Running; break;
+		case GameSounds.Land: newClip = Land; break;
+		case GameSounds.MoonBeam: newClip = MoonBeam; break;
+		case GameSounds.Respawn: newClip = Respawn; break;
+		case GameSounds.Jump: newClip = Jump; break;
+		case GameSounds.DoubleJump: newClip = DoubleJump; break;
+		case GameSounds.ChargeRelease: newClip = ChargeRelease; break;
+		case GameSounds.ChargingUp: newClip = ChargingUp; break;
+		case GameSounds.Fire: newClip = Fire; break;
+		case GameSounds.Smash: newClip = Smash; break;
+		case GameSounds.GrappleActivate: newClip = GrappleActivate; break;
+		case GameSounds.GrappleReeling: newClip = GrappleReeling; break;
+		case GameSounds.GrappleRelease: newClip = GrappleRelease; break;
+		case GameSounds.WallSliding: newClip = WallSliding; break;
+		case GameSounds.WallJump: newClip = WallJump; break;
+		case GameSounds.PullUpGrunt: newClip = PullUpGrunt; break;
+		case GameSounds.PuzzleStart: newClip = PuzzleStart; break;
+		case GameSounds.PuzzleComplete: newClip = PuzzleComplete; break;
+		case GameSounds.PuzzleFailed: newClip = PuzzleFailed; break;
+		case GameSounds.TakeDamage: newClip = TakeDamage; break;
+		case GameSounds.GameOver: newClip = GameOver; break;
+		case GameSounds.Heal: newClip = Heal; break;
+
+		case GameSounds.Bat: newClip = Bat; break;
+		case GameSounds.ShiftingStones: newClip = ShiftingStones; break;
+		case GameSounds.StonesSettleLoud: newClip = StonesSettleLoud; break;
+		case GameSounds.Intro: newClip = Intro; break;
+		}
+		return newClip;
+	}
+	
 	private bool QueueMode = false;
 	public List<AudioSource> Channels;
 	public void SetVolume(float volume)
@@ -155,46 +210,7 @@ public class SoundController : MonoBehaviour
 		AudioSource.Stop();
 		AudioSource.Play();
 		AudioSource.loop = false;
-	}
 	
-	private AudioClip GetSound(GameSounds sound)
-	{
-		AudioClip newClip;
-		switch (sound)
-		{	
-			default:
-			case GameSounds.Pickup: newClip = Pickup; break;
-			case GameSounds.Crunch: newClip = Crunch; break;
-			case GameSounds.Walking: newClip = Walking; break;
-			case GameSounds.Jogging: newClip = Jogging; break;
-			case GameSounds.Running: newClip = Running; break;
-			case GameSounds.Land: newClip = Land; break;
-			case GameSounds.MoonBeam: newClip = MoonBeam; break;
-			case GameSounds.Respawn: newClip = Respawn; break;
-			case GameSounds.Jump: newClip = Jump; break;
-			case GameSounds.DoubleJump: newClip = DoubleJump; break;
-			case GameSounds.ChargeRelease: newClip = ChargeRelease; break;
-			case GameSounds.ChargingUp: newClip = ChargingUp; break;
-			case GameSounds.Fire: newClip = Fire; break;
-			case GameSounds.Smash: newClip = Smash; break;
-			case GameSounds.GrappleActivate: newClip = GrappleActivate; break;
-			case GameSounds.GrappleReeling: newClip = GrappleReeling; break;
-			case GameSounds.GrappleRelease: newClip = GrappleRelease; break;
-			case GameSounds.WallSliding: newClip = WallSliding; break;
-			case GameSounds.WallJump: newClip = WallJump; break;
-			case GameSounds.PullUpGrunt: newClip = PullUpGrunt; break;
-			case GameSounds.PuzzleStart: newClip = PuzzleStart; break;
-			case GameSounds.PuzzleComplete: newClip = PuzzleComplete; break;
-			case GameSounds.PuzzleFailed: newClip = PuzzleFailed; break;
-			case GameSounds.TakeDamage: newClip = TakeDamage; break;
-			case GameSounds.GameOver: newClip = GameOver; break;
-			case GameSounds.Heal: newClip = Heal; break;
-
-			case GameSounds.Bat: newClip = Bat; break;
-			case GameSounds.ShiftingStones: newClip = ShiftingStones; break;
-			case GameSounds.StonesSettleLoud: newClip = StonesSettleLoud; break;
-			case GameSounds.Intro: newClip = Intro; break;
-		}
-		return newClip;
+	
 	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraShaker : MonoBehaviour
 {
-	private ServiceLocator ServiceLocator;
+	private ISoundController SoundController;
 	public float ShakeAmount = 0.0f;
 	private bool ShakeEnabled;
 	private static float PitchMultiplier = 10.0f;
@@ -12,7 +12,7 @@ public class CameraShaker : MonoBehaviour
 	private Quaternion OriginalRotation = Quaternion.identity;
     void Start()
     {
-	    ServiceLocator = FindObjectOfType<ServiceLocator>();
+	    SoundController = GameUtility.GetAnyObjectsThatImplementsInterface<ISoundController>()[0];
     }
 
     // Update is called once per frame
@@ -44,10 +44,10 @@ public class CameraShaker : MonoBehaviour
 	}
 	public void PlayLoopedSound(GameSounds sound)
 	{
-		ServiceLocator.SoundController.PlayOnLoop(sound,1);
+		SoundController.PlayOnLoop(sound,1);
 	}
 	public void PlaySound(GameSounds sound)
 	{
-		ServiceLocator.SoundController.PlayOneShot(sound,1);
+		SoundController.PlayOneShot(sound,1);
 	}
 }

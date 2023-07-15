@@ -19,7 +19,7 @@ public class SamplePlayerController : MonoBehaviour
 	private GameObject PlayerAnimatorContainer;
 	[HideInInspector]
 	public Animator PlayerAnimatorAnimator;
-	private ServiceLocator ServiceLocator;
+	private SampleServiceLocator ServiceLocator;
 	public Rigidbody PlayerBall;
 	private GameObject PlayerCamera;
 	private GameObject SkyboxCamera;
@@ -177,7 +177,7 @@ public class SamplePlayerController : MonoBehaviour
 		PlayerAnimatorAnimator = GameObject.Find("PlayerAnimatorAnimator").GetComponent<Animator>();
 		PlayerAnimatorContainer = GameObject.Find("PlayerAnimatorContainer");
 		PlayerBall = GameObject.Find("PlayerBall").GetComponent<Rigidbody>();
-		ServiceLocator = GameObject.FindAnyObjectByType<ServiceLocator>();
+		ServiceLocator = GameObject.FindAnyObjectByType<SampleServiceLocator>();
 		StaticGeometryLayerMask = LayerMask.GetMask("StaticGeometry","Climbable");
 		OnlyStaticGeometryLayerMask = LayerMask.GetMask("StaticGeometry");
 		ClimbableLayerMask = LayerMask.GetMask("Climbable");

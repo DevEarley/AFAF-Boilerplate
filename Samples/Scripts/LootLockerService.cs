@@ -5,7 +5,7 @@ using UnityEngine;
 using LootLocker.Requests;
 public class LootLockerService : MonoBehaviour
 {
-	private ServiceLocator ServiceLocator;
+	private UIController UIController;
 	private float TimeStarted;
 	private float TimeFinished;
 	private string Name = "WEBGL";
@@ -20,7 +20,7 @@ public class LootLockerService : MonoBehaviour
 	
 	void Awake()
 	{
-		ServiceLocator = FindObjectOfType<ServiceLocator>();
+		UIController = FindObjectOfType<UIController>();
 	}
 	void Start()
 	{
@@ -50,11 +50,11 @@ public class LootLockerService : MonoBehaviour
 			if (response.statusCode == 200) {
 				Debug.Log("Successful");
 				CompletedGoals.Add(leaderboardID);
-				ServiceLocator.UIController.SpriteFontPanel.Render("You did it "+Name+"!\nYour score is "+GetFormattedTime(_score/1000.0f));
+				UIController.SpriteFontPanel.Render("You did it "+Name+"!\nYour score is "+GetFormattedTime(_score/1000.0f));
 				
 			} else {
 				Debug.Log("failed: " + response.Error);
-				ServiceLocator.UIController.SpriteFontPanel.Render("ERROR SUBMITTING SCORE");
+				UIController.SpriteFontPanel.Render("ERROR SUBMITTING SCORE");
 				
 			}
 		});
@@ -71,18 +71,18 @@ public class LootLockerService : MonoBehaviour
 			if (response.statusCode == 200) {
 				if(CompletedGoals.Contains(LeaderBoardID))
 				{
-					ServiceLocator.UIController.SpriteFontPanel.text = "YOUR SCORE -  "+ GetFormattedTime(timeScoreConvertedToPoints/1000.0f) ;
+					UIController.SpriteFontPanel.text = "YOUR SCORE -  "+ GetFormattedTime(timeScoreConvertedToPoints/1000.0f) ;
 				}
-				ServiceLocator.UIController.SpriteFontPanel.text = "--- TIMES FOR "+ LeaderBoardName +"---\n(LOWER IS BETTER)\n";
-				ServiceLocator.UIController.SpriteFontPanel.text += string.Concat(response.items.Select(x=>{
+				UIController.SpriteFontPanel.text = "--- TIMES FOR "+ LeaderBoardName +"---\n(LOWER IS BETTER)\n";
+				UIController.SpriteFontPanel.text += string.Concat(response.items.Select(x=>{
 					var scoreToDisplay = GetFormattedTime(x.score/1000.0f);
 					return "- "+ x.metadata+" - "+scoreToDisplay+" - " +x.rank+" -\n";
 				}));
-				ServiceLocator.UIController.SpriteFontPanel.RenderText();
+				UIController.SpriteFontPanel.RenderText();
 			}
 			else
 			{
-				ServiceLocator.UIController.SpriteFontPanel.Render("Error Getting Scores");
+				UIController.SpriteFontPanel.Render("Error Getting Scores");
 				
 			}
 	});

@@ -6,17 +6,17 @@ using System.Linq;
 public class SampleGameController : MonoBehaviour, IReactToAllScenarios 
 {
 	[HideInInspector]
-	public ServiceLocator ServiceLocator;
-	public SettingsController SettingsController;
+	public SampleServiceLocator ServiceLocator;
+	public SampleSettingsController SettingsController;
 	private SamplePlayerController PlayerController; 
 	private LootLockerService LootLockerService;
 	//public GameObject SceneTransitionerPrefab;
 	private void Awake() 
 	{ 
-		SettingsController = FindAnyObjectByType<SettingsController>();
+		SettingsController = FindAnyObjectByType<SampleSettingsController>();
 		LootLockerService = FindAnyObjectByType<LootLockerService>();
 		PlayerController = FindAnyObjectByType<SamplePlayerController>();
-		ServiceLocator = FindAnyObjectByType<ServiceLocator>();  
+		ServiceLocator = FindAnyObjectByType<SampleServiceLocator>();  
 		
 		//if(GameObject.Find("SceneTransitioner")==null)
 		//{

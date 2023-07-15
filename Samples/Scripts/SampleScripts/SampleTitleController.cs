@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleController : MonoBehaviour, IReactToAllScenarios
+public class SampleTitleController : MonoBehaviour, IReactToAllScenarios
 {
 	//public GameObject SettingsUI;
 	public GameObject MainMenuUI;

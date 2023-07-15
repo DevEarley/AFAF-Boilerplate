@@ -3,9 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
-
 public static class GameUtility 
 {
+	public static List<T> GetAnyObjectsThatImplementsInterface<T>(){
+		return  GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<T>().ToList();	
+
+		//List<T> Matching = new List<T>();
+		//MonoBehaviour[] allScripts = FindObjectsOfType<MonoBehaviour>();
+		//for (int i = 0; i < allScripts.Length; i++)
+		//{
+		//	if(allScripts[i] is type)
+		//	{
+		//		Matching.Add((allScripts[i] as type));
+		//	}
+		
+		//}
+		//return Matching;
+	}
+	
+	public static T GetAnyObjectThatImplementsInterface<T>(){
+		return  GameObject.FindObjectsOfType<MonoBehaviour>(true).OfType<T>().First();	
+	}
 	public static void LoadScene(string sceneNameAndSpawnName)
 	{
 		if(sceneNameAndSpawnName.Contains(","))
