@@ -1,10 +1,10 @@
 {
     "name":"com.asfunasfun.boilerplate",
-    "version":"1.0.2",
+    "version":"1.0.3",
     "dependencies": {
         "com.unity.inputsystem":"1.6.1",
         "com.unity.ugui":"1.0.0",
-        "com.lootlocker.lootlockersdk":"1.2.3"
+        "com.lootlocker.lootlockersdk":"1.2.4"
     },
     "samples":[
         {
