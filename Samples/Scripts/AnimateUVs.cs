@@ -19,6 +19,10 @@ public class AnimateUVs : MonoBehaviour
     void Start()
     {
 	    MeshRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+	    if(MeshRenderer == null)
+	    {
+		    MeshRenderer = gameObject.GetComponent<MeshRenderer>();
+	    }
 	    if(AnimationModels.Count>0)
 	    {
 	    	CurrentModel = AnimationModels[0];
@@ -65,15 +69,20 @@ public class AnimateUVs : MonoBehaviour
 	{
 		foreach(var UVName in UVNames)
 		{
-			MeshRenderer.sharedMaterial.SetTextureOffset(UVName, Offset);
+			MeshRenderer.material.SetTextureOffset(UVName, Offset);
 		}
 	}
 	
 	private void MoveFrameForModel(AnimationModel model){
+		if(MeshRenderer == null)
+		{
+			MeshRenderer = gameObject.GetComponent<MeshRenderer>();
+		}
 		foreach(var UVName in UVNames)
 		{
+			//Debug.Log(MeshRenderer +"-"+ model);
 			MeshRenderer.material = model.Material;
-			MeshRenderer.sharedMaterial.SetTextureOffset(UVName, Offset);
+			MeshRenderer.material.SetTextureOffset(UVName, Offset);
 		}
 	}
 	
@@ -83,6 +92,10 @@ public class AnimateUVs : MonoBehaviour
 		Offset = Vector2.zero;
 		FrameTime = Time.time;
 		CurrentModel = AnimationModels.First(x=>x.Name == animationModelName);
+		if(MeshRenderer == null)
+		{
+			MeshRenderer = gameObject.GetComponent<MeshRenderer>();
+		}
 		MoveFrameForModel(CurrentModel);
 	}
 }

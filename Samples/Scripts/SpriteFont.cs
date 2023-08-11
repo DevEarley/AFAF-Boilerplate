@@ -97,7 +97,7 @@ public class SpriteFont : MonoBehaviour
     public Sprite amp;
 	public Sprite percent;
 	public List<SpriteFontCustomCharacter>CustomCharacters = new List<SpriteFontCustomCharacter>();
-	
+	public bool CapsLock = false;
 	public float defaultCharacterSpacing = 0.2f;
  public Sprite GetSpriteForLetterOrCustomCharacter(string letter)
  {
@@ -107,7 +107,8 @@ public class SpriteFont : MonoBehaviour
 	 return customCharacter.Sprite;
  }
     public Sprite GetSpriteForChar(char letter)
-    {
+	{
+		if(CapsLock)letter = letter.ToString().ToUpper()[0];
         switch (letter)
         {
         default:

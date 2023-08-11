@@ -25,7 +25,7 @@ public class SampleTopdownGameController : MonoBehaviour
 	private void LockMouseIfNeeded()
 	{
 		if (
-			InputController.WasStartReleased
+			InputController.WasPauseReleased
 			&& Cursor.lockState != CursorLockMode.None
 		)
 		{

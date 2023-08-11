@@ -11,7 +11,7 @@ public class ScenarioBehaviour : MonoBehaviour
 	public TextAsset TextFile;
 	public bool RunOnStart;
 	public bool RunOnTriggerEnter;
-	public InputController InputController;
+	private InputController InputController;
     private int player_layer_index = 3;
 	public bool RequireActionPress = false;
 	private bool ReadyForInteraction = false;
@@ -37,8 +37,7 @@ public class ScenarioBehaviour : MonoBehaviour
 		if(TextFile == null)return;
 		
 		if(RequireActionPress == false)return;
-		var buttonWasPressed = InputController.WasAction2Released || InputController.WasAction1Released;
-		if(ReadyForInteraction && buttonWasPressed)
+		if(ReadyForInteraction && InputController.WasAnyButtonPressed())
 		{
 			ReadyForInteraction = false;
 			StartScenario();
@@ -47,10 +46,10 @@ public class ScenarioBehaviour : MonoBehaviour
 	
 	private void OnTriggerEnter(Collider other)
 	{ 
+		if (other.tag != "Pilot") return;
 		if(Locked )return;
 		if(TextFile == null)return;
 		if(RunOnTriggerEnter ==false)return;
-		if (other.gameObject.layer != player_layer_index) return;
 		if(RequireActionPress)
 		{
 			ReadyForInteraction = true;
@@ -67,10 +66,10 @@ public class ScenarioBehaviour : MonoBehaviour
 	private void OnTriggerExit(Collider other)
 	{ 
 		if(Locked)return;
+		if (other.tag != "Pilot") return;
 		
 		if(TextFile == null)return;
 		
-		if (other.gameObject.layer != player_layer_index) return;
 		ReadyForInteraction = false;
 	}
 

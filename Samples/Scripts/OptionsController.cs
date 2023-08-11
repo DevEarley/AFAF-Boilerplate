@@ -127,10 +127,8 @@ public class OptionPickerService : MonoBehaviour
 		var optionIndex = 0;
 		foreach(string optionText in options)
 		{
-			//Debug.Log("optionText "+optionText);
-			//Debug.Log("optionText Length "+ optionText.Length);
 			var newButtonBehaviour = CreateNewButton();
-			newButtonBehaviour.OnRegistered(optionText,optionIndex,OnOptionButtonDown_ForScenario, OnOptionButtonHover_ForScenaio);
+			newButtonBehaviour.RegisterButton(optionText,optionIndex,OnOptionButtonDown_ForScenario, OnOptionButtonHover_ForScenaio);
 			optionIndex++;
 		}
 		

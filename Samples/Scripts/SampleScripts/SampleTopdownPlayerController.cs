@@ -246,12 +246,12 @@ public class SampleTopdownPlayerController : MonoBehaviour
 	{
 		CalculateLook();
 		
-		if((InputController.WasAction2Pressed || InputController.WasTargetLockPressed)&& LockedMelee == false)
+		if((InputController.WasNorthButtonPressed || InputController.WasRightBumperPressed)&& LockedMelee == false)
 		{
 			StartCoroutine(MeleeAttack());
 			
 		}
-		if((InputController.WasAction1Pressed || InputController.WasFreeLookPressed) && HasShotgun)
+		if((InputController.WasWestButtonPressed || InputController.WasLeftBumperPressed) && HasShotgun)
 		{
 			if(Ammo == 0)
 			{
@@ -264,7 +264,7 @@ public class SampleTopdownPlayerController : MonoBehaviour
 			
 		}
 		
-		if(Dash_Locked == false && InputController.WasRunPressed)
+		if(Dash_Locked == false && InputController.WasEastButtonPressed)
 		{
 			StartCoroutine(Dash());
 		}

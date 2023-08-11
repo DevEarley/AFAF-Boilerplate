@@ -33,13 +33,7 @@ public class DataRepository : MonoBehaviour
         ReadFile();
 	}
 	
-	public void UpdateSettingsAndSave(SampleSettingsController settings)
-	{
-		gameData.Slots[0].mouseSensitivity = settings.mx.ToString();
-		gameData.Slots[0].mouseSensitivity = settings.volume.ToString();
-		gameData.Slots[0].mouseSensitivity = settings.playerName;
-		WriteFile();
-	}
+
 	public SaveState GetCurrentSaveState()
 	{
 		return gameData.Slots[CurrentLoadSlot];
@@ -108,7 +102,7 @@ public class DataRepository : MonoBehaviour
 		
 	}
 	
-	private void WriteFile()
+	public void WriteFile()
 	{
 		
 		//Debug.Log("Data Service | WriteFile");

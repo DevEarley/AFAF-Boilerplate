@@ -9,6 +9,7 @@ public class LootLockerService : MonoBehaviour
 	private float TimeStarted;
 	private float TimeFinished;
 	private string Name = "WEBGL";
+	private string LeaderboardID = "16280";
 	[HideInInspector]
 	public List<string> CompletedGoals =  new List<string>();
 	public string memberId = "unregistered";
@@ -40,6 +41,7 @@ public class LootLockerService : MonoBehaviour
 	private void OnGuestSessionStart(LootLockerGuestSessionResponse response)
 	{
 		memberId = response.player_id.ToString();
+		ShowScoresOnScreen(LeaderboardID,"MechJamIV");
 	
 	}
 	
@@ -71,18 +73,18 @@ public class LootLockerService : MonoBehaviour
 			if (response.statusCode == 200) {
 				if(CompletedGoals.Contains(LeaderBoardID))
 				{
-					UIController.SpriteFontPanel.text = "YOUR SCORE -  "+ GetFormattedTime(timeScoreConvertedToPoints/1000.0f) ;
+					UIController.LeaderboardSpriteFontPanel.text = "YOUR SCORE -  "+ GetFormattedTime(timeScoreConvertedToPoints/1000.0f) ;
 				}
-				UIController.SpriteFontPanel.text = "--- TIMES FOR "+ LeaderBoardName +"---\n(LOWER IS BETTER)\n";
-				UIController.SpriteFontPanel.text += string.Concat(response.items.Select(x=>{
+				UIController.LeaderboardSpriteFontPanel.text = "--- TIMES FOR "+ LeaderBoardName +"---\n(LOWER IS BETTER)\n";
+				UIController.LeaderboardSpriteFontPanel.text += string.Concat(response.items.Select(x=>{
 					var scoreToDisplay = GetFormattedTime(x.score/1000.0f);
 					return "- "+ x.metadata+" - "+scoreToDisplay+" - " +x.rank+" -\n";
 				}));
-				UIController.SpriteFontPanel.RenderText();
+				UIController.LeaderboardSpriteFontPanel.RenderText();
 			}
 			else
 			{
-				UIController.SpriteFontPanel.Render("Error Getting Scores");
+				UIController.LeaderboardSpriteFontPanel.Render("Error Getting Scores");
 				
 			}
 	});

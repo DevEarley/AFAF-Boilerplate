@@ -144,6 +144,10 @@ public class ScenarioService : MonoBehaviour
 		        IncrementLineAndRunNextLine();
 	        	
 	        }
+	        //TODO
+	        //else if  (line.StartsWith(".animate"))
+		    //    GameUtility.AnimateObject(param2);
+	        //break;
 	        else if (line.StartsWith(".wait"))
 	        {
 	        	StartCoroutine(HandleWait(line));
@@ -289,6 +293,7 @@ public class ScenarioService : MonoBehaviour
 	
 	private string HandleExpression(string line)
 	{
+		Debug.Log(line);
 		if(line.Contains("[")&&line.Contains("]"))
 		{
 			var dataId = ScenarioUtility.GetSubstring(line,"[","]");
@@ -357,7 +362,7 @@ public class ScenarioService : MonoBehaviour
 	private void HandleDotNext()
 	{
 		if (InputController.CheckInputThrottle() &&
-			InputController.WasJumpPressed || InputController.WasAction1Pressed|| InputController.WasAction2Pressed)
+			InputController.WasSouthButtonPressed || InputController.WasWestButtonPressed|| InputController.WasNorthButtonPressed)
 		{
 			InputController.ResetInputThrottle();
 			BehaviourThatDrawsText.ClearText();
@@ -525,7 +530,8 @@ public class ScenarioDataSet
 		var slot1 = gameData.Slots[0];
 		Data = new List<ScenarioDataSetItem>();
 		Data.Add(new ScenarioDataSetItem("name",slot1.name));
-		Data.Add(new ScenarioDataSetItem("mouse sensitivity",slot1.mouseSensitivity));
+		Data.Add(new ScenarioDataSetItem("mouse x",slot1.mouseSensitivityX));
+		Data.Add(new ScenarioDataSetItem("mouse y",slot1.mouseSensitivityX));
 		Data.Add(new ScenarioDataSetItem("volume",slot1.volume));
 		
 		//Data.AddRange(slot1.Collectables.Select(c=>new ScenarioDataSetItem(c.type.ToString()+c.ID.ToString(),"true")));

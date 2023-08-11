@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ButtonBehaviour : MonoBehaviour
 {
@@ -23,12 +24,10 @@ public class ButtonBehaviour : MonoBehaviour
 	
 	public Animator ButtonAnimator;
 	
-	void LateUpdate()
+	void Update()
 	{
-		if(InputController.InputDetected)
-		{
-			OnInputEvent();
-		}
+		CheckButton();
+		
 	}
 	
 	void Awake()
@@ -44,11 +43,15 @@ public class ButtonBehaviour : MonoBehaviour
 		CheckButton();
 	}
 	
-	public void OnRegistered(string buttonText,int optionIndex, CallbackDelegate _Callback, HoverDelegate _Hover)
+	public void RegisterButton(string buttonText,int optionIndex, CallbackDelegate _Callback, HoverDelegate _Hover)
 	{
-		ButtonLock = true;
-		
 		SetButtonText(buttonText);
+		OptionIndex = optionIndex;
+		ButtonCallback = _Callback;
+		ButtonHover = _Hover;
+	}
+	public void RegisterButton(int optionIndex, CallbackDelegate _Callback, HoverDelegate _Hover)
+	{
 		OptionIndex = optionIndex;
 		ButtonCallback = _Callback;
 		ButtonHover = _Hover;
@@ -57,7 +60,7 @@ public class ButtonBehaviour : MonoBehaviour
 	public void SetButtonText(string _text)
 	{
 		ButtonText = _text;
-		if(ButtonText!=null)
+		if(ButtonText!=null && ButtonText != ""  && ButtonSpriteFontPanel!=null)
 		{
 			StartCoroutine(AnimateButtonText());
 		}
@@ -74,17 +77,23 @@ public class ButtonBehaviour : MonoBehaviour
 	private void CheckButton()
 	{
 		if(ButtonLock) return;
-		var buttonReleased = InputController.WasAnyButtonReleased();
+		var buttonReleased =  Mouse.current.leftButton.wasReleasedThisFrame;
 		if(ButtonHovering && buttonReleased == false)
 		{
+			//Debug.Log("ButtonHover");
+			
 			ButtonAnimator.Play("ButtonHover");
 		}
 		else if(ButtonHovering && buttonReleased == true)
 		{
+			//Debug.Log("ButtonPressed");
+			
 			StartCoroutine(ButtonPressed());
 		}
 		else
 		{
+			//Debug.Log("ButtonIdle");
+			
 			ButtonAnimator.Play("ButtonIdle");
 		}
 	}
@@ -94,10 +103,6 @@ public class ButtonBehaviour : MonoBehaviour
 		CheckButton();
 	}
 	
-	//protected void OnDestroy()
-	//{
-	//	InputController.Subscribers.Remove(gameObject);
-	//}
 	public void PressButtonAnimation()
 	{
 		ButtonAnimator.Play("ButtonDown");
@@ -105,6 +110,7 @@ public class ButtonBehaviour : MonoBehaviour
 	}
 	private IEnumerator ButtonPressed()
 	{
+		Debug.Log("ButtonPressed");
 		ButtonLock = true;
 		ButtonAnimator.Play("ButtonDown");
 		yield return new WaitForSeconds(ButtonDelayTime);
@@ -114,12 +120,14 @@ public class ButtonBehaviour : MonoBehaviour
 	
 	void OnMouseOver()
 	{
+		//Debug.Log("OnMouseOver");
+		
 		if(ButtonHovering == false)
 		{
 			ButtonHovering = true;
 			ButtonAnimator.Play("ButtonHover");
 			ButtonHover(OptionIndex);
-			
+			CheckButton();
 		}
 	}
 

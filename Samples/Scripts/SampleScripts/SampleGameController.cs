@@ -34,10 +34,10 @@ public class SampleGameController : MonoBehaviour, IReactToAllScenarios
 		var data = ServiceLocator.DataRepository.gameData;
 		ServiceLocator.ScenarioService.LoadData(new ScenarioDataSet(data));
 		var gameData = data.Slots[0];
-		if(gameData.mouseSensitivity!=""&& gameData.mouseSensitivity!=null)
+		if(gameData.mouseSensitivityX!=""&& gameData.mouseSensitivityX!=null)
 		{
-			ChangeMouseSensitivityX(gameData.mouseSensitivity);
-			ChangeMouseSensitivityY(gameData.mouseSensitivity);
+			ChangeMouseSensitivityX(gameData.mouseSensitivityX);
+			ChangeMouseSensitivityY(gameData.mouseSensitivityY);
 		}
 		if(gameData.volume!=""&& gameData.volume!=null)
 		{
@@ -74,7 +74,7 @@ public class SampleGameController : MonoBehaviour, IReactToAllScenarios
 				break;
 		
 			case "show-settings":
-				SettingsController.ShowSettings(Settings_OnBack);
+				//
 				break;
 			
 	

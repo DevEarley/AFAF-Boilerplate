@@ -12,7 +12,7 @@ public class SampleLevelController : MonoBehaviour
 	private Rigidbody PlayerBall;
 	public static float distance = 45.0f;
 	//private static float distance = 20.0f;
-	public List<LevelModel>Levels;
+	public List<SampleLevelModel>Levels;
 	private GameObject CurrentLevel;
 	private GameObject LastLevel;
 	private GameObject NextLevel;
@@ -165,7 +165,7 @@ public class SampleLevelController : MonoBehaviour
 }
 
 [System.Serializable]
-public class LevelModel
+public class SampleLevelModel
 {
 	public string name;
 	public int index;

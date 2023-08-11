@@ -221,7 +221,7 @@ public class SamplePlayerController : MonoBehaviour
 		//CameraFollowMode = ServiceLocator.InputController.IsTargetLockPressed|| ServiceLocator.InputController.IsFreeLookPressed;
 			
 			
-		if(ServiceLocator.InputController.WasTargetLockPressed || ServiceLocator.InputController.WasFreeLookPressed)
+		if(ServiceLocator.InputController.WasRightBumperPressed || ServiceLocator.InputController.WasLeftBumperPressed)
 		{
 			trackingAngleX = PlayerAnimatorContainer.transform.rotation.eulerAngles.y +90.0f;
 		}
@@ -360,7 +360,7 @@ public class SamplePlayerController : MonoBehaviour
 	private void LockMouseIfNeeded()
 	{
 		if (
-			ServiceLocator.InputController.WasStartReleased
+			ServiceLocator.InputController.WasPauseReleased
 			&& Cursor.lockState != CursorLockMode.None
 		)
 		{
@@ -420,12 +420,12 @@ public class SamplePlayerController : MonoBehaviour
 	}
 	private void CheckJump()
 	{
-		if(ServiceLocator.InputController.WasJumpPressed && ServiceLocator.InputController.MovementInputVector.magnitude>0.0f)
+		if(ServiceLocator.InputController.WasSouthButtonPressed && ServiceLocator.InputController.MovementInputVector.magnitude>0.0f)
 		{
 			StartCoroutine(Jump());
 			
 		}
-		if(ServiceLocator.InputController.WasJumpPressed && ServiceLocator.InputController.MovementInputVector.magnitude==0.0f)
+		if(ServiceLocator.InputController.WasSouthButtonPressed && ServiceLocator.InputController.MovementInputVector.magnitude==0.0f)
 		{
 			StartCoroutine(JumpInPlace());
 		}
@@ -547,7 +547,7 @@ public class SamplePlayerController : MonoBehaviour
 	
 	private void CheckForPullUpWhileHaningFromLedge()
 	{
-		if (ServiceLocator.InputController.WasJumpPressed && ClimbOverLedgeAvailable)
+		if (ServiceLocator.InputController.WasSouthButtonPressed && ClimbOverLedgeAvailable)
 		{
 			ClimbOverLedgeAvailable = false;
 			StartCoroutine(ClimbOverLedge());
@@ -580,7 +580,7 @@ public class SamplePlayerController : MonoBehaviour
 
 	public void CheckForClimbingCancelJump()
 	{
-		if (ServiceLocator.InputController.WasAction2Pressed)
+		if (ServiceLocator.InputController.WasNorthButtonPressed)
 		{
 			PlayerBall.isKinematic = false;
 			//cancel climbing mode, jump away from surface normal.
@@ -778,7 +778,7 @@ public class SamplePlayerController : MonoBehaviour
 	public void OnExitSwimmingVolume()
 	{
 		InWaterVolume = false;
-		if(ServiceLocator.InputController.IsJumpDown)
+		if(ServiceLocator.InputController.IsSouthButtonDown)
 		{
 			StartCoroutine(Jump());
 		}

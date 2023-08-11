@@ -21,7 +21,8 @@ public class GameDataModel
 public class SaveState
 {
 
-	public string mouseSensitivity;
+	public string mouseSensitivityX;
+	public string mouseSensitivityY;
 	public string volume;
 	public string name;
 	

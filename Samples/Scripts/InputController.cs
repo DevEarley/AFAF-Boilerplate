@@ -29,48 +29,65 @@ public class InputController : MonoBehaviour, IControlInput
 	[HideInInspector]
 	public Vector2 DPadVector;
 	[HideInInspector]
-	public bool WasJumpReleased;
+	public bool WasSouthButtonReleased;
 	[HideInInspector]
-	public bool WasJumpPressed;
+	public bool WasSouthButtonPressed;
 	[HideInInspector]
-	public bool WasStartReleased;
+	public bool WasPauseReleased;
 	[HideInInspector]
 	public bool WasPausePressed;
 	[HideInInspector]
-	public bool WasAction1Released;
+	public bool WasWestButtonReleased;
 	[HideInInspector]
-	public bool WasAction1Pressed;
+	public bool WasWestButtonPressed;
 	[HideInInspector]
-	public bool WasRunReleased;
+	public bool WasEastButtonReleased;
 	
 	[HideInInspector]
-	public bool WasRunPressed;
+	public bool WasEastButtonPressed;
 	[HideInInspector]
-	public bool IsRunDown;
+	public bool IsEastButtonDown;
 	[HideInInspector]
-	public bool IsAction1Down;
+	public bool IsWestButtonDown;
 	[HideInInspector]
-	public bool IsAction2Down;
+	public bool IsNorthButtonDown;
 	[HideInInspector]
-	public bool IsJumpDown;
+	public bool IsSouthButtonDown;
 	[HideInInspector]
-	public bool WasAction2Released; 
+	public bool WasNorthButtonReleased; 
 	[HideInInspector]
-	public bool WasAction2Pressed;
+	public bool WasNorthButtonPressed;
+	
 	
 	[HideInInspector]
-	public bool IsFreeLookPressed; 
+	public bool IsLeftBumperPressed; 
 	[HideInInspector]
-	public bool WasFreeLookPressed; 
+	public bool WasLeftBumperPressed; 
 	[HideInInspector]
-	public bool WasFreeLookReleased;
+	public bool WasLeftBumperReleased;
 
 	[HideInInspector]
-	public bool IsTargetLockPressed; 
+	public bool IsRightBumperPressed; 
 	[HideInInspector]
-	public bool WasTargetLockPressed; 
+	public bool WasRightBumperPressed; 
 	[HideInInspector]
-	public bool WasTargetLockReleased;
+	public bool WasRightBumperReleased;
+	
+	
+	[HideInInspector]
+	public bool IsLeftTriggerPressed; 
+	[HideInInspector]
+	public bool WasLeftTriggerPressed; 
+	[HideInInspector]
+	public bool WasLeftTriggerReleased;
+
+	[HideInInspector]
+	public bool IsRightTriggerPressed; 
+	[HideInInspector]
+	public bool WasRightTriggerPressed; 
+	[HideInInspector]
+	public bool WasRightTriggerReleased;
+	
 
 	public InputControllerState InputControllerState;
 	public Gamepad gamepad;
@@ -247,115 +264,137 @@ public class InputController : MonoBehaviour, IControlInput
 	//}
 	public bool WasAnyButtonPressed()
 	{
-		return	WasAction1Pressed || 
-			WasAction2Pressed  || 
-			WasJumpPressed  || 
+		return	WasWestButtonPressed || 
+			WasNorthButtonPressed  || 
+			WasSouthButtonPressed  || 
 			WasPausePressed  ||
-			WasRunPressed ||
-			WasTargetLockPressed||
-			WasFreeLookPressed;
+			WasEastButtonPressed ||
+			WasRightBumperPressed||
+			WasLeftBumperPressed;
 	}
 	public bool WasAnyButtonReleased()
 	{
-		return WasAction1Released || 
-			WasAction2Released ||
-			WasJumpReleased || 
-			WasStartReleased || 
-			WasRunReleased || 
-			WasTargetLockReleased ||  
-			WasFreeLookReleased;
+		return WasWestButtonReleased || 
+			WasNorthButtonReleased ||
+			WasSouthButtonReleased || 
+			WasPauseReleased || 
+			WasEastButtonReleased || 
+			WasRightBumperReleased ||  
+			WasLeftBumperReleased;
 	}
 	
 	public bool IsAnyButtonDown()
 	{
-		return IsAction1Down || 
-			IsAction2Down ||
-			IsRunDown || 
-			IsJumpDown ;
+		return IsWestButtonDown || 
+			IsNorthButtonDown ||
+			IsEastButtonDown || 
+			IsSouthButtonDown ;
 	}
 	private void UpdateButtons()
 	{
-		WasJumpReleased = false;
-		WasJumpPressed = false;
-		WasStartReleased= false;
+		WasSouthButtonReleased = false;
+		WasSouthButtonPressed = false;
+		WasPauseReleased= false;
 		WasPausePressed= false;
-		WasAction1Pressed= false;
-		WasAction1Released= false;
-		WasRunPressed= false;
-		WasRunReleased= false;
-		WasAction2Pressed= false;
-		WasAction2Released= false;
+		WasWestButtonPressed= false;
+		WasWestButtonReleased= false;
+		WasEastButtonPressed= false;
+		WasEastButtonReleased= false;
+		WasNorthButtonPressed= false;
+		WasNorthButtonReleased= false;
 		//IsTargetLockPressed =false;
-		WasTargetLockPressed =false;
-		WasTargetLockReleased = false;
+		WasRightBumperPressed =false;
+		WasRightBumperReleased = false;
 		//IsFreeLookPressed =false;
-		WasFreeLookReleased = false;
-		WasFreeLookPressed =false;
-		IsRunDown = false;
-		IsAction1Down = false;
-		IsAction2Down = false;
-		IsJumpDown = false;
+		WasLeftBumperReleased = false;
+		WasLeftBumperPressed =false;
+		//IsRightTriggerPressed = false;
+		WasRightTriggerPressed =false;
+		WasRightTriggerReleased = false;
+		//IsLeftTriggerPressed = false;
+		WasLeftTriggerReleased =false;
+		WasLeftTriggerPressed =false;
+		IsEastButtonDown = false;
+		IsWestButtonDown = false;
+		IsNorthButtonDown = false;
+		IsSouthButtonDown = false;
 			
 		//TODO - check DataRepo for custom inputs
 		if (gamepad != null)
 		{
-			WasJumpReleased = gamepad.buttonSouth.wasReleasedThisFrame;
-			WasJumpPressed = gamepad.buttonSouth.wasPressedThisFrame;
-			IsJumpDown = gamepad.buttonSouth.isPressed;
+			WasSouthButtonReleased = gamepad.buttonSouth.wasReleasedThisFrame;
+			WasSouthButtonPressed = gamepad.buttonSouth.wasPressedThisFrame;
+			IsSouthButtonDown = gamepad.buttonSouth.isPressed;
 			
-			WasStartReleased = gamepad.startButton.wasReleasedThisFrame;
+			WasPauseReleased = gamepad.startButton.wasReleasedThisFrame;
 			WasPausePressed = gamepad.startButton.wasPressedThisFrame;
 
-			WasAction1Pressed = gamepad.buttonWest.wasPressedThisFrame;
-			WasAction1Released = gamepad.buttonWest.wasReleasedThisFrame;
-			IsAction1Down = gamepad.buttonWest.isPressed;
+			WasWestButtonPressed = gamepad.buttonWest.wasPressedThisFrame;
+			WasWestButtonReleased = gamepad.buttonWest.wasReleasedThisFrame;
+			IsWestButtonDown = gamepad.buttonWest.isPressed;
 			
-			WasRunPressed = gamepad.buttonEast.wasPressedThisFrame;
-			WasRunReleased = gamepad.buttonEast.wasReleasedThisFrame;
-			IsRunDown = gamepad.buttonEast.isPressed;
+			WasEastButtonPressed = gamepad.buttonEast.wasPressedThisFrame;
+			WasEastButtonReleased = gamepad.buttonEast.wasReleasedThisFrame;
+			IsEastButtonDown = gamepad.buttonEast.isPressed;
 			
-			WasTargetLockReleased = gamepad.rightShoulder.value==0 && IsTargetLockPressed;
-			WasTargetLockPressed = gamepad.rightShoulder.wasPressedThisFrame;//|| (IsTargetLockPressed == false && gamepad.rightShoulder.value>0 );
-			IsTargetLockPressed = gamepad.rightShoulder.value>0;
+			WasNorthButtonPressed = gamepad.buttonNorth.wasPressedThisFrame;
+			WasNorthButtonReleased = gamepad.buttonNorth.wasReleasedThisFrame;
+			IsNorthButtonDown = gamepad.buttonNorth.isPressed;
 			
-			WasFreeLookReleased = gamepad.leftShoulder.value==0 && IsFreeLookPressed;
-			WasFreeLookPressed =gamepad.leftShoulder.wasPressedThisFrame;//|| (IsFreeLookPressed == false && gamepad.leftShoulder.value>0);
-			IsFreeLookPressed = gamepad.leftShoulder.value>0;
+			WasRightBumperReleased = gamepad.rightShoulder.value==0 && IsRightBumperPressed;
+			WasRightBumperPressed = gamepad.rightShoulder.wasPressedThisFrame;
+			IsRightBumperPressed = gamepad.rightShoulder.value>0;
+			
+			WasLeftBumperReleased = gamepad.leftShoulder.value==0 && IsLeftBumperPressed;
+			WasLeftBumperPressed =gamepad.leftShoulder.wasPressedThisFrame;//
+			IsLeftBumperPressed = gamepad.leftShoulder.value>0;
 
-			WasAction2Pressed = gamepad.buttonNorth.wasPressedThisFrame;
-			WasAction2Released = gamepad.buttonNorth.wasReleasedThisFrame;
-			IsAction2Down = gamepad.buttonNorth.isPressed;
+	
+			WasRightTriggerReleased = gamepad.rightTrigger.wasReleasedThisFrame;
+			WasRightTriggerPressed = gamepad.rightTrigger.wasPressedThisFrame;
+			IsRightTriggerPressed = gamepad.rightTrigger.value>0;
+			
+			WasLeftTriggerReleased = gamepad.leftTrigger.wasReleasedThisFrame;
+			WasLeftTriggerPressed =gamepad.leftTrigger.wasPressedThisFrame;
+			IsLeftTriggerPressed = gamepad.leftTrigger.value>0;
+
+
 			
 		}
 		if (keyboard != null)
 		{
-			WasJumpReleased = WasJumpReleased || keyboard.spaceKey.wasReleasedThisFrame;
-			WasJumpPressed = WasJumpPressed || keyboard.spaceKey.wasPressedThisFrame;
-			IsJumpDown = IsJumpDown || keyboard.spaceKey.isPressed;
-
-			WasStartReleased = WasStartReleased || keyboard.escapeKey.wasReleasedThisFrame;
+			WasPauseReleased = WasPauseReleased || keyboard.escapeKey.wasReleasedThisFrame;
 			WasPausePressed = WasPausePressed || keyboard.escapeKey.wasPressedThisFrame;
 
-			WasAction1Pressed = WasAction1Pressed|| keyboard.eKey.wasPressedThisFrame || Mouse.current.leftButton.wasPressedThisFrame;
-			WasAction1Released = WasAction1Released|| keyboard.eKey.wasReleasedThisFrame|| Mouse.current.leftButton.wasReleasedThisFrame;
-			IsAction1Down = IsAction1Down || keyboard.eKey.isPressed;
+			WasSouthButtonReleased = WasSouthButtonReleased || keyboard.spaceKey.wasReleasedThisFrame;
+			WasSouthButtonPressed = WasSouthButtonPressed || keyboard.spaceKey.wasPressedThisFrame;
+			IsSouthButtonDown = IsSouthButtonDown || keyboard.spaceKey.isPressed;
+
+			WasWestButtonPressed = WasWestButtonPressed|| keyboard.fKey.wasPressedThisFrame;
+			WasWestButtonReleased = WasWestButtonReleased|| keyboard.fKey.wasReleasedThisFrame;
+			IsWestButtonDown = IsWestButtonDown || keyboard.fKey.isPressed;
 			
-			WasRunPressed = WasRunPressed||keyboard.shiftKey.wasPressedThisFrame;
-			WasRunReleased = WasRunReleased|| keyboard.shiftKey.wasReleasedThisFrame;
-			IsRunDown = IsRunDown || keyboard.shiftKey.isPressed;
+			WasEastButtonPressed = WasEastButtonPressed||keyboard.shiftKey.wasPressedThisFrame;
+			WasEastButtonReleased = WasEastButtonReleased|| keyboard.shiftKey.wasReleasedThisFrame;
+			IsEastButtonDown = IsEastButtonDown || keyboard.shiftKey.isPressed;
         
-			WasAction2Pressed = WasAction2Pressed || keyboard.fKey.wasPressedThisFrame|| Mouse.current.rightButton.wasPressedThisFrame;
-			WasAction2Released = WasAction2Released|| keyboard.fKey.wasReleasedThisFrame|| Mouse.current.rightButton.wasReleasedThisFrame;
-			IsAction2Down = IsAction2Down || keyboard.fKey.isPressed;
+			WasNorthButtonPressed = WasNorthButtonPressed || keyboard.eKey.wasPressedThisFrame;
+			WasNorthButtonReleased = WasNorthButtonReleased|| keyboard.eKey.wasReleasedThisFrame;
+			IsNorthButtonDown = IsNorthButtonDown || keyboard.eKey.isPressed;
 			
+			WasRightBumperReleased = WasRightBumperReleased || keyboard.rKey.wasReleasedThisFrame ||  Mouse.current.middleButton.wasReleasedThisFrame;
+			WasRightBumperPressed = WasRightBumperPressed || keyboard.rKey.wasPressedThisFrame ||  Mouse.current.middleButton.wasPressedThisFrame;
+		
+			WasLeftBumperReleased = WasLeftBumperReleased || keyboard.leftCtrlKey.wasReleasedThisFrame ||  Mouse.current.forwardButton.wasReleasedThisFrame;
+			WasLeftBumperPressed =  WasLeftBumperPressed || keyboard.leftCtrlKey.wasPressedThisFrame ||  Mouse.current.forwardButton.wasPressedThisFrame;
 			
-			WasTargetLockReleased = WasTargetLockReleased || keyboard.rKey.wasReleasedThisFrame ||  Mouse.current.middleButton.wasReleasedThisFrame;
-			WasTargetLockPressed = WasTargetLockPressed || keyboard.rKey.wasPressedThisFrame ||  Mouse.current.middleButton.wasPressedThisFrame;
-			//IsTargetLockPressed = IsTargetLockPressed;
+			WasRightTriggerReleased = WasRightTriggerReleased || keyboard.cKey.wasReleasedThisFrame|| Mouse.current.leftButton.wasReleasedThisFrame;
+			WasRightTriggerPressed = WasRightTriggerPressed || keyboard.cKey.wasPressedThisFrame|| Mouse.current.leftButton.wasPressedThisFrame;
+			IsRightTriggerPressed = IsRightTriggerPressed ||  keyboard.cKey.isPressed|| Mouse.current.leftButton.isPressed;
 				
-			WasFreeLookReleased = WasFreeLookReleased || keyboard.leftCtrlKey.wasReleasedThisFrame ||  Mouse.current.forwardButton.wasReleasedThisFrame;
-			WasFreeLookPressed =  WasFreeLookPressed || keyboard.leftCtrlKey.wasPressedThisFrame ||  Mouse.current.forwardButton.wasPressedThisFrame;
-			//	IsFreeLookPressed = IsFreeLookPressed || Mouse.current.forwardButton.value>0;
+			WasLeftTriggerReleased = WasLeftTriggerReleased || keyboard.qKey.wasReleasedThisFrame || Mouse.current.rightButton.wasReleasedThisFrame;
+			WasLeftTriggerPressed =  WasLeftTriggerPressed || keyboard.qKey.wasPressedThisFrame|| Mouse.current.rightButton.wasPressedThisFrame;
+			IsLeftTriggerPressed = IsLeftTriggerPressed ||  keyboard.qKey.isPressed|| Mouse.current.rightButton.isPressed;
 		}
 		
 	}

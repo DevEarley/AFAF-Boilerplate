@@ -437,7 +437,10 @@ public class SpriteFontPanel : MonoBehaviour
 		{
 			if(child!=null)
 			{
-				child.GetComponent<SpriteRenderer>().sprite = SpriteFont.space;
+				var renderer = child.GetComponent<SpriteRenderer>();
+				if(renderer)
+					renderer.sprite = SpriteFont.space;
+				
 			}
 		}
 

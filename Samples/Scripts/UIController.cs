@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIController : MonoBehaviour, IDrawText
 {
 	public SpriteFontPanel SpriteFontPanel;
-
+	public SpriteFontPanel LeaderboardSpriteFontPanel;
 	public void HidePanel()
 	{
 		SpriteFontPanel.Reset();

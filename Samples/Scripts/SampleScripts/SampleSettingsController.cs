@@ -12,6 +12,8 @@ public class SampleSettingsController : MonoBehaviour
 	
 	[HideInInspector]
 	public float mx; 
+	[HideInInspector]
+	public float my; 
 	private float mxMin = 1.0f; 
 	private float mxMax = 500.0f; 
 	private float mxDelta = 5.0f; 
@@ -24,22 +26,24 @@ public class SampleSettingsController : MonoBehaviour
 	private int SettingsButtonCount = 6;
 	private bool ButtonLock = false;
 	private static float ButtonDelayTime = 0.3f;
-	private SliderBehaviour VolumeSlider;
-	private SliderBehaviour MXSlider;
-	public GameObject NameInputPrefab; 
-	public GameObject BackButtonPrefab; 
+	public SliderBehaviour VolumeSlider;
+	public SliderBehaviour MXSlider;
+	public SliderBehaviour MYSlider;
 	private GameObject NameInput; 
-	private GameObject BackButton;	
+	public ButtonBehaviour BackButton;	
 	private UIController UIController;
-	private SliderService SliderService;
 	private LootLockerService LootLockerService;
 	private DataRepository DataRepository;
 	private InputController InputController;
 	private ScenarioService ScenarioService;
 	private TypedInputService TypedInputService;
+	
 	public delegate void OnBackDelegate();
 	public OnBackDelegate OnBack;
-	
+	public void RegisterSettings (OnBackDelegate onBack)
+	{
+		OnBack = onBack;
+	}
 	private void Start()
 	{
 		LootLockerService = GameObject.FindAnyObjectByType<LootLockerService>();
@@ -49,148 +53,59 @@ public class SampleSettingsController : MonoBehaviour
 		ScenarioService = GameObject.FindAnyObjectByType<ScenarioService>();
 		UIController = GameObject.FindAnyObjectByType<UIController>();
 		TypedInputService = GameObject.FindAnyObjectByType<TypedInputService>();
+		
+		VolumeSlider.RegisterSlider(Volume_OnValueChanged);
+		MXSlider.RegisterSlider(MX_OnValueChanged);
+		MYSlider.RegisterSlider(MY_OnValueChanged);
+		BackButton.RegisterButton(0,OnBackButton_Press,OnBackButton_Hover);
+		
 	}
-	
+	public void OnBackButton_Press(int index)
+	{
+		DataRepository.WriteFile();
+		OnBack();
+	}	
+	public void OnBackButton_Hover(int index)
+	{
+		
+	}
 	public void OnDataLoaded()
 	{
 		if(DataRepository.gameData.Slots[0].volume == null || DataRepository.gameData.Slots[0].volume == "")return;
 		volume = float.Parse(DataRepository.gameData.Slots[0].volume);
-		mx =  float.Parse(DataRepository.gameData.Slots[0].mouseSensitivity);
+		mx =  float.Parse(DataRepository.gameData.Slots[0].mouseSensitivityX);
+		mx =  float.Parse(DataRepository.gameData.Slots[0].mouseSensitivityY);
 		playerName = DataRepository.gameData.Slots[0].name;
 		if(playerName!="")
 		{
 			LootLockerService.SetName(playerName);
 		}
 		InputController.MouseSensitivity_x = mx;
+		InputController.MouseSensitivity_y = my;
 		//MusicController.volume = volume;
 	}
 	
-	public void ShowSettings(OnBackDelegate onBack)
-	{
-		OnBack = onBack;
-		if(VolumeSlider == null)
-		{
-			VolumeSlider = SliderService.CreateSliderButtons(volumeMin,volumeMax,volume,"Volume");
-		}	
-		if(MXSlider == null)
-		{
-			MXSlider = SliderService.CreateSliderButtons(mxMin,mxMax,mx,"Mouse Sensitivity");
-			
-		}	
-		if(NameInput == null)
-		{
-			NameInput = GameObject.Instantiate(NameInputPrefab);
-		}	
-		if(BackButton == null)
-		{
-			BackButton = GameObject.Instantiate(BackButtonPrefab);
-			
-		}	
-	}
-	
-	public void OnBackButton_SaveAndQuit()
-	{
-		DataRepository.UpdateSettingsAndSave(this);
-		OnBack();
-	}
-	
-	private IEnumerator CursorMoved()
-	{
-		if(InputController.LookInputVector.magnitude!=0){}
-		
-		else
-		{
-			if(InputController.MovementInputBinaryVector.y>0 || InputController.DPadVector.y>0 )
-			{
-				SettingsCursorIndex --;
-			}
-			else if(InputController.MovementInputBinaryVector.y<0|| InputController.DPadVector.y<0 )
-			{
-				SettingsCursorIndex ++;
-			}
-			else if(InputController.MovementInputBinaryVector.x>0.5f|| InputController.DPadVector.x>0.0f)
-			{
-				SettingsCursorIndex ++;
-			}
-			else if(InputController.MovementInputBinaryVector.x<-0.5f|| InputController.DPadVector.x<0.0f)
-			{
-				SettingsCursorIndex --;
-			}
-			if(SettingsCursorIndex>SettingsButtonCount-1)
-			{
-				SettingsCursorIndex = 0;
-			}
-			if(SettingsCursorIndex<0)
-			{
-				SettingsCursorIndex=SettingsButtonCount-1;
-			}
-		
-			ButtonLock = true;
-			yield return new WaitForSeconds(ButtonDelayTime);
-			ButtonLock = false;
-		}
-	}
-	void LateUpdate()
-	{
-		if(InputController.InputDetected && IsShowing)
-		{
-			OnInputEvent();
-		}
-	}	
-	public void OnInputEvent()
-	{
-		if(ButtonLock)return;
-		if(InputController.IsAnyButtonDown())
-		{
-			switch( (SettingIndexes)SettingsCursorIndex)
-			{
-			case SettingIndexes.MouseSensitivity_Less:
-				mx -= mxDelta;
-				mx=Mathf.Clamp(mx,mxMin,mxMax);
-				break;
-			case SettingIndexes.MouseSensitivity_More:
-				mx += mxDelta;
-				mx=Mathf.Clamp(mx,mxMin,mxMax);
-				break;
-			case SettingIndexes.Volume_Less:
-				volume -= volumeDelta;
-				volume=Mathf.Clamp(volume,volumeMin,volumeMax);
-				break;
-			case SettingIndexes.Volume_More:
-				volume += volumeDelta;
-				volume=Mathf.Clamp(volume,volumeMin,volumeMax);
-			
-				break;
-			case SettingIndexes.Name:
-				Debug.Log("case SettingIndexes.Name: CaptureUserInput");
-					TypedInputService.CaptureUserInput(OnCapturedName);
-				
-				break;
-			case SettingIndexes.Done:
-				DataRepository.UpdateSettingsAndSave(this);
-				IsShowing = false;
-				ScenarioService.Continue();
-				break;
-			}
-		}
-		else
-		{
-			StartCoroutine(CursorMoved());
-		}
-	}
-	public void OnCapturedName(string name)
-	{
-		LootLockerService.SetName(name);
-		playerName = name;
-	}
-}
 
-public enum SettingIndexes
-{
-	MouseSensitivity_Less  =0,
-	MouseSensitivity_More =1,
-	Volume_Less=2,
-	Volume_More=3,
-	Name=4,
-	Done=5
+	public void Volume_OnValueChanged(float value)
+	{
+		volume = value;
+		DataRepository.gameData.Slots[0].volume = volume.ToString();
+		
+	}
+	public void MX_OnValueChanged(float value)
+	{
+		mx = value;
+		DataRepository.gameData.Slots[0].mouseSensitivityX = mx.ToString();
+		InputController.MouseSensitivity_x = mx;
+		
+	}
+	public void MY_OnValueChanged(float value)
+	{
+		my = value;
+		DataRepository.gameData.Slots[0].mouseSensitivityY = my.ToString();
+		InputController.MouseSensitivity_x = my;
+	}
+	
+	
+
 }
