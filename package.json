@@ -1,6 +1,6 @@
 {
     "name":"com.asfunasfun.boilerplate",
-    "version":"1.0.3",
+    "version":"1.0.4",
     "dependencies": {
         "com.unity.inputsystem":"1.6.1",
         "com.unity.ugui":"1.0.0",
@@ -8,19 +8,9 @@
     },
     "samples":[
         {
-            "displayName": "Shaders",
-            "description": "Shaders",
-            "path": "Samples/Shaders"
-        },
-        {
             "displayName": "Scripts",
             "description": "Scripts",
             "path": "Samples/Scripts"
-        },
-         {
-            "displayName": "Sample Scripts",
-            "description": "More Scripts",
-            "path": "Samples/Scripts/SampleScripts"
         },
         {
             "displayName": "Materials",
